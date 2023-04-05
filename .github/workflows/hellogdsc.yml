@@ -1,18 +1,19 @@
-name: Generate REAME for GDSC
+name: Generate README for GDSC
 
-on: [ workflow_dispatch ]
+on: [workflow_dispatch]
 
-permissions: 
+permissions:
   contents: write
   
 jobs:
   generate:
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     steps:
-      - users: actions/checkout@v3 # checks out the repository contents
-      - run: |
-        echo "# Hello GDSC" > README.md
-        echo "## Generate using ${{github.event.workflow}}" >> README.md
+      - uses: actions/checkout@v3
+      - name: Generate README
+        run: |
+          echo "# Hello GDSC" > README.md
+          echo "Generated using: \`${{ github.event.workflow }}\`" >> README.md
       - uses: EndBug/add-and-commit@v9
         with:
           add: "README.md"
